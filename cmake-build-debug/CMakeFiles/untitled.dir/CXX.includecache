@@ -6,21 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/maks/CLionProjects/untitled/./expression_generator.cpp
-string
--
-stdlib.h
--
-time.h
--
-
-/home/maks/CLionProjects/untitled/main.cpp
-iostream
--
-string
--
-boost/regex.hpp
--
-./expression_generator.cpp
-/home/maks/CLionProjects/untitled/./expression_generator.cpp
-

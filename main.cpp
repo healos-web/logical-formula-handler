@@ -2,6 +2,8 @@
 #include <string>
 #include <boost/regex.hpp>
 #include "./expression_generator.cpp"
+#include "./formula_calculator.cpp"
+#include <vector>
 using namespace std;
 
 void showCommands() {
@@ -9,7 +11,8 @@ void showCommands() {
          << "1 -------- Check is logic expression valid\n"
          << "2 -------- Start quiz\n"
          << "3 -------- Show commands list\n"
-         << "4 -------- Exit\n";
+         << "4 -------- Check is one formula follows from another\n"
+         << "5 -------- Exit\n";
 }
 
 int main() {
@@ -81,6 +84,52 @@ int main() {
                 break;
             }
             case 4: {
+                string formula_1;
+                string formula_2;
+
+                cout << "Enter first formula\n";
+
+                while (true) {
+                    cin >> formula_1;
+
+                    if (!regex_match(formula_1, expression)) {
+                        cout << "Formula 1 doesn't follow logical formula syntax please try again";
+                        continue;
+                    } else {
+                        break;
+                    }
+                };
+
+                while (true) {
+                    cin >> formula_2;
+
+                    if (!regex_match(formula_2, expression)) {
+                        cout << "Formula 2 doesn't follow logical formula syntax please try again";
+                        continue;
+                    } else {
+                        break;
+                    }
+                };
+
+                vector<char> variables = extractVariables(formula_1, formula_2);
+                vector<vector<int>> cases = generateCases(variables.size());
+                vector<int> formulaValues_1 = calculate(formula_1, cases);
+                vector<int> formulaValues_2 = calculate(formula_2, cases);
+
+                if (isFollowing(formulaValues_1, formulaValues_2)) {
+                    cout << "Formula 2 follows from Formula 1\n";
+                } else {
+                    cout << "Formula 2 doesn't follow from Formula 1\n";
+                }
+
+                cout << "See final values matrix:\n";
+                for(int i; i < formulaValues_1.size(); i++) {
+                    cout << formulaValues_1[i] << " --- " << formulaValues_2[i] << "\n";
+                };
+
+                break;
+            }
+            case 5: {
                 exitFlag = true;
                 break;
             }
