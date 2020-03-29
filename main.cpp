@@ -41,24 +41,51 @@ int main() {
                 break;
             }
             case 2: {
+                int quizTopic;
+                cout << "Select quiz topic\n" << "1 --- Is this formula correct\n" << "2 --- Does one formula follow from another\n";
+                cin >> quizTopic;
                 cout << "Enter the number of tasks\n";
                 cin >> taskNumber;
                 cout << "QUIZ STARTED\n";
+
+                if (quizTopic != 1 && quizTopic != 2) {
+                    cout << "Unknown topic\n";
+                }
 
                 int score = 0;
                 for (int i = 0; i < taskNumber; i++) {
 
                     cout << "Progress " << i + 1 << " from " << taskNumber << "\n";
-                    string task = generateGroup();
-                    cout << "Does this expression correct?\n";
-                    cout << task << "\n";
 
+                    string task;
+                    bool rightAnswer;
                     string answer;
-                    cin >> answer;
 
-                    bool isCorrectExp = regex_match(task, expression);
+                    switch (quizTopic) {
+                        case 1: {
+                            string task = generateGroup(true);
 
-                    if (isCorrectExp) {
+                            cout << "Does this expression correct?\n";
+                            cout << task << "\n";
+
+                            cin >> answer;
+
+                            rightAnswer = regex_match(task, expression);
+                        }
+                        case 2: {
+                            string formula_1 = generateGroup(false);
+                            string formula_2 = generateGroup(false);
+
+                            cout << "Does the first formula follow from the second?\n";
+                            cout << "1: " << formula_1 << "\n" << "2: " << formula_2 << "\n";
+
+                            cin >> answer;
+
+                            rightAnswer = isFollowing(formula_1, formula_2, false);
+                        }
+                    }
+
+                    if (rightAnswer) {
                         if (answer == "yes") {
                             cout << "You are right!";
                             score++;
@@ -87,7 +114,7 @@ int main() {
                 string formula_1;
                 string formula_2;
 
-                cout << "Enter first formula\n";
+                cout << "Enter the first formula\n";
 
                 while (true) {
                     cin >> formula_1;
@@ -100,6 +127,8 @@ int main() {
                     }
                 };
 
+                cout << "Enter the second formula\n";
+
                 while (true) {
                     cin >> formula_2;
 
@@ -111,21 +140,11 @@ int main() {
                     }
                 };
 
-                vector<char> variables = extractVariables(formula_1, formula_2);
-                vector<vector<int>> cases = generateCases(variables.size());
-                vector<int> formulaValues_1 = calculate(formula_1, cases);
-                vector<int> formulaValues_2 = calculate(formula_2, cases);
-
-                if (isFollowing(formulaValues_1, formulaValues_2)) {
+                if (isFollowing(formula_1, formula_2, true)) {
                     cout << "Formula 2 follows from Formula 1\n";
                 } else {
                     cout << "Formula 2 doesn't follow from Formula 1\n";
                 }
-
-                cout << "See final values matrix:\n";
-                for(int i; i < formulaValues_1.size(); i++) {
-                    cout << formulaValues_1[i] << " --- " << formulaValues_2[i] << "\n";
-                };
 
                 break;
             }
