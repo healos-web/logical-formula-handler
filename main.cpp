@@ -16,6 +16,7 @@ void showCommands() {
 }
 
 int main() {
+    // variables and constants
     int command;
     int taskNumber;
     boost::regex expression("(([A-Z10])|(\\(\\!(?1)\\))|(\\(((?1)([&|~]|(->))(?1))\\)))");
@@ -25,6 +26,7 @@ int main() {
     srand (time(NULL));
     showCommands();
 
+    // main cycle
     while (!exitFlag) {
         cin >> command;
 

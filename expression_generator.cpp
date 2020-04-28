@@ -3,6 +3,8 @@
 #include <vector>
 using namespace std;
 
+// returns random formula operation;
+// if parameter 'withNoise' is set to True, it might return wrong symbols
 string generateOperation(bool withNoise) {
     vector<string> variationOptions = {"&", "|", "->", "~"};
 
@@ -14,6 +16,8 @@ string generateOperation(bool withNoise) {
     return variationOptions[variation];
 }
 
+// returns random variable letter or constant;
+// if parameter `withNoise` is set to True, it might return wrong symbols
 string generateConstant(bool withNoise) {
     string variations = "QWERTYUIOPASDFGHJKLZXCVBNM01";
 
@@ -27,14 +31,18 @@ string generateConstant(bool withNoise) {
     return constant;
 }
 
+// returns string that is represent simple logical formula group
 string generateSimpleGroup(string group) {
     return "(!" + group + ")";
 }
 
+// returns string that is represent complex logical formula group
 string generateComplexGroup(string group1, string group2, bool withNoise) {
    return "(" + group1 + generateOperation(withNoise) + group2 + ")";
 }
 
+// returns string that is represent logical formula;
+// if parameter 'withNoise' is set to True, it might return formula with incorrect syntax
 string generateGroup(bool withNoise) {
     int groupType = rand() % 3;
 

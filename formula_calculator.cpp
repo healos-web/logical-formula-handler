@@ -1,8 +1,10 @@
-#include <string>
+#include <string>4
 #include <vector>
 #include <regex>
 using namespace std;
 
+// takes two strings that should be valid logical formulas,then search variables in these strings and returns vector
+// that contains them in alphabetical order
 vector<string> extractVariables(string formula_1, string formula_2) {
     vector<string> vec;
 
@@ -28,6 +30,8 @@ vector<string> extractVariables(string formula_1, string formula_2) {
     return vec;
 }
 
+// returns 2-dimension matrix with provided size, values are all possible options of binary numbers with provided number
+// of digits
 vector<vector<int>> generateCases(int variablesNumber) {
     vector<vector<int>> vec;
 
@@ -57,6 +61,7 @@ vector<vector<int>> generateCases(int variablesNumber) {
     return vec;
 }
 
+// replace variables by possible cases in string logical formula, then calculate formula values and return results vector
 vector<string> calculate(string formula, vector<vector<int>> cases, vector<string> variables) {
     vector<string> vec;
 
@@ -102,6 +107,7 @@ vector<string> calculate(string formula, vector<vector<int>> cases, vector<strin
     return vec;
 }
 
+// checks is one formula is following from another; print all possible values that formulas can be calculated
 bool isFollowing(string formula_1, string formula_2, bool showFinalResults) {
     vector<string> variables = extractVariables(formula_1, formula_2);
     vector<vector<int>> cases = generateCases(variables.size());
