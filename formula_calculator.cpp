@@ -1,4 +1,4 @@
-#include <string>4
+#include <string>
 #include <vector>
 #include <regex>
 using namespace std;
@@ -107,7 +107,7 @@ vector<string> calculate(string formula, vector<vector<int>> cases, vector<strin
     return vec;
 }
 
-// checks is one formula is following from another; print all possible values that formulas can be calculated
+// checks is one formula is foll4owing from another; print all possible values that formulas can be calculated
 bool isFollowing(string formula_1, string formula_2, bool showFinalResults) {
     vector<string> variables = extractVariables(formula_1, formula_2);
     vector<vector<int>> cases = generateCases(variables.size());
